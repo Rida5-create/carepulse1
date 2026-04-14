@@ -471,10 +471,10 @@
       Book appointments online, meet specialist doctors, and get the treatment you deserve.
     </p>
     <div class="hero-btns">
-      <button class="btn-hero-primary" onclick="scrollTo('#appointment')">
+      <button class="btn-hero-primary" onclick="smoothScrollTo('#appointment')">
         📅 Book Appointment
       </button>
-      <button class="btn-hero-outline" onclick="scrollTo('#services')">
+      <button class="btn-hero-outline" onclick="smoothScrollTo('#services')">
         🏥 View Services
       </button>
     </div>
@@ -705,7 +705,13 @@
               <label for="a_service">Service</label>
               <select id="a_service">
                 <option value="">-- Select a Service --</option>
-                <!-- These options are populated from the Rails API using JavaScript below -->
+                <option value="General Medicine">General Medicine</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Dermatology">Dermatology</option>
+                <!-- These options are optionally fetched from the Rails API using JavaScript below -->
               </select>
             </div>
             <div class="fgroup">
@@ -816,7 +822,7 @@
             <div class="ci-ico-text">
               <strong>Address</strong>
               <!-- ✏️ EDIT: Replace with your real address -->
-              <span>123 Health Street, Lahore, Pakistan</span>
+              <span>123 Health Street, Karachi, Pakistan</span>
             </div>
           </li>
           <li>
@@ -919,7 +925,7 @@
     <div>
       <h4>Contact</h4>
       <ul>
-        <li><a href="#">📍 Lahore, Pakistan</a></li>
+        <li><a href="#">📍 Karachi, Pakistan</a></li>
         <li><a href="#">📞 +92 300 0000000</a></li>
         <li><a href="#">📧 info@carepulse.com</a></li>
         <li><a href="/admin/login" target="_blank">🔐 Admin Panel</a></li>
@@ -958,12 +964,22 @@
   const LIVE_BACKEND_URL = ''; 
 
   // Automatically detect if we should use localhost, a specific live URL, or the current origin
-  const RAILS_URL = (window.location.hostname === 'localhost' || window.location.protocol === 'file:') 
-                    ? 'http://localhost:3000' 
-                    : (LIVE_BACKEND_URL || window.location.origin);
+  let RAILS_URL = LIVE_BACKEND_URL || window.location.origin;
+
+  // Smart local network detection: Forces API calls to port 3000 when testing locally,
+  // fixing issues with Live Server or mobile device previews.
+  if (!LIVE_BACKEND_URL) {
+    if (window.location.protocol === 'file:') {
+      // If opened as a local file, guess it's running on the same machine
+      RAILS_URL = 'http://localhost:3000';
+    } else if (window.location.hostname === 'localhost' || window.location.hostname.match(/^(192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)/)) {
+      // Always direct API calls to port 3000 on local network tests
+      RAILS_URL = `${window.location.protocol}//${window.location.hostname}:3000`;
+    }
+  }
 
   // ── HELPER: smooth scroll ───────────────────────────────
-  function scrollTo(id) {
+  function smoothScrollTo(id) {
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 
@@ -1026,14 +1042,18 @@
       const res  = await fetch(`${RAILS_URL}/api/services`);
       if (!res.ok) return;
       const data = await res.json();
-      const sel  = document.getElementById('a_service');
-      // Keep first default option, then append DB services
-      data.forEach(s => {
-        const opt = document.createElement('option');
-        opt.value       = s.id;
-        opt.textContent = s.title;
-        sel.appendChild(opt);
-      });
+      
+      if (data && data.length > 0) {
+        const sel  = document.getElementById('a_service');
+        // If we got DB services successfully, we can optionally clear the static options except the first
+        sel.innerHTML = '<option value="">-- Select a Service --</option>';
+        data.forEach(s => {
+          const opt = document.createElement('option');
+          opt.value       = s.id;
+          opt.textContent = s.title;
+          sel.appendChild(opt);
+        });
+      }
     } catch (e) {
       // Backend offline — silently continue with static content
       console.info('CarePulse: Rails server offline. Running in static mode.');
