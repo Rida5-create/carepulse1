@@ -1,0 +1,1 @@
+BUNDLE_GEMFILE=c:/Users/Rida/Desktop/CarePulse/.ruby-lsp/Gemfile

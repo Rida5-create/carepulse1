@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarePulse – Premium Healthcare Services</title>
+  <meta name="description" content="Expert medical care, online appointments, and specialized treatments for you and your family.">
+
+  <!-- Google Fonts: Inter (professional medical look) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- ═══════════════════════════════════════════════════
+       ALL CSS STYLES (internal)
+  ════════════════════════════════════════════════════ -->
+  <style>
+    /* ── CSS VARIABLES (change colors here to retheme) ── */
+    :root {
+      --primary:   #0f4c81;   /* deep medical blue  */
+      --primary-l: #1a65a8;   /* lighter blue       */
+      --green:     #22c55e;   /* health green       */
+      --green-bg:  #dcfce7;
+      --text:      #1e293b;
+      --muted:     #64748b;
+      --border:    #e2e8f0;
+      --bg:        #f4f8fb;
+      --white:     #ffffff;
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ════════════════════════════════════════
+       NAVBAR
+    ════════════════════════════════════════ */
+    nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 14px rgba(0,0,0,.06);
+    }
+    .logo { font-size: 1.45rem; font-weight: 800; color: var(--primary); }
+    .logo span { color: var(--green); }
+
+    /* Search bar in navbar */
+    .nav-search {
+      display: flex; align-items: center; gap: .4rem;
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 9px; padding: .35rem .8rem;
+    }
+    .nav-search input {
+      border: none; background: transparent; outline: none;
+      font-size: .88rem; width: 170px; font-family: inherit; color: var(--text);
+    }
+
+    .nav-links { display: flex; gap: .15rem; list-style: none; align-items: center; }
+    .nav-links a {
+      padding: .45rem .85rem; border-radius: 8px;
+      font-size: .88rem; font-weight: 500; color: var(--muted);
+      transition: all .2s;
+    }
+    .nav-links a:hover { background: var(--bg); color: var(--primary); }
+    .nav-links .cta {
+      background: var(--primary); color: #fff !important;
+      font-weight: 600; padding: .5rem 1.1rem;
+    }
+    .nav-links .cta:hover { background: var(--primary-l) !important; }
+
+    /* Hamburger for mobile */
+    .hamburger { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--primary); }
+    #mobileMenu {
+      display: none; flex-direction: column; gap: .2rem;
+      background: #fff; padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    #mobileMenu a {
+      padding: .6rem .75rem; border-radius: 8px;
+      color: var(--text); font-weight: 500; font-size: .95rem;
+    }
+    #mobileMenu a:hover { background: var(--bg); }
+
+    /* ════════════════════════════════════════
+       HERO SECTION
+    ════════════════════════════════════════ */
+    .hero {
+      background: linear-gradient(135deg, #0c3e6e 0%, #0f4c81 50%, #1a5f9a 100%);
+      color: #fff;
+      padding: 6rem 2rem 5rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    /* Decorative bottom wave */
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -2px; left: 0; right: 0; height: 70px;
+      background: var(--white);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .hero-inner { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+      border-radius: 99px; padding: .35rem 1.1rem;
+      font-size: .82rem; font-weight: 600; margin-bottom: 1.5rem;
+      letter-spacing: .05em; backdrop-filter: blur(6px);
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      font-weight: 800; line-height: 1.18; margin-bottom: 1.2rem;
+    }
+    .hero h1 em { font-style: normal; color: #4ade80; }
+    .hero p {
+      font-size: 1.05rem; color: rgba(255,255,255,.85);
+      max-width: 500px; margin: 0 auto 2rem; line-height: 1.8;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-hero-primary {
+      background: #fff; color: var(--primary);
+      padding: .8rem 2rem; border-radius: 10px;
+      font-weight: 700; font-size: .95rem; border: none; cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.2); }
+    .btn-hero-outline {
+      background: transparent; color: #fff;
+      padding: .8rem 2rem; border-radius: 10px;
+      font-weight: 700; font-size: .95rem;
+      border: 2px solid rgba(255,255,255,.5); cursor: pointer; transition: all .2s;
+    }
+    .btn-hero-outline:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+
+    /* Stats row inside hero */
+    .hero-stats {
+      display: flex; justify-content: center; gap: 2.5rem;
+      margin-top: 3rem; flex-wrap: wrap;
+    }
+    .hero-stat .val { font-size: 1.8rem; font-weight: 800; color: #4ade80; }
+    .hero-stat .lbl { font-size: .8rem; color: rgba(255,255,255,.7); margin-top: .1rem; }
+
+    /* ════════════════════════════════════════
+       SHARED SECTION STYLES
+    ════════════════════════════════════════ */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .sec-header { text-align: center; margin-bottom: 3rem; }
+    .sec-tag {
+      display: inline-block;
+      background: var(--green-bg); color: #16a34a;
+      border-radius: 99px; padding: .3rem .9rem;
+      font-size: .78rem; font-weight: 700;
+      letter-spacing: .06em; margin-bottom: .75rem;
+    }
+    .sec-header h2 {
+      font-size: clamp(1.55rem, 3vw, 2.1rem);
+      font-weight: 800; color: var(--primary);
+    }
+    .sec-header p { color: var(--muted); margin-top: .6rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    /* ════════════════════════════════════════
+       ABOUT SECTION
+    ════════════════════════════════════════ */
+    #about { background: var(--bg); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3.5rem; align-items: center; }
+    .about-card {
+      background: linear-gradient(135deg, var(--primary), var(--primary-l));
+      border-radius: 20px; padding: 3rem 2rem; text-align: center; color: #fff;
+    }
+    .about-card .ico { font-size: 4.5rem; margin-bottom: 1rem; }
+    .about-card h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: .5rem; }
+    .about-card p { color: rgba(255,255,255,.82); font-size: .92rem; line-height: 1.7; }
+
+    .about-text h2 { font-size: 1.75rem; font-weight: 800; color: var(--primary); margin-bottom: 1rem; }
+    /* ✏️ EDIT: Replace the placeholder <p> text below with your clinic's real description */
+    .about-text p { color: var(--muted); line-height: 1.85; margin-bottom: .85rem; font-size: .95rem; }
+    .checkmarks { list-style: none; margin-top: 1.25rem; }
+    .checkmarks li {
+      display: flex; align-items: center; gap: .7rem;
+      padding: .4rem 0; font-weight: 500; color: var(--text);
+    }
+    .checkmarks li::before { content: "✅"; }
+
+    /* ════════════════════════════════════════
+       SERVICES SECTION
+       ✏️ ADD SERVICE: Duplicate a .service-card div below to add more services.
+       Or add them via Admin Panel → Services (/admin/login)
+    ════════════════════════════════════════ */
+    #services { background: var(--white); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.4rem;
+    }
+    .service-card {
+      border: 1.5px solid var(--border); border-radius: 16px;
+      padding: 2rem 1.5rem; transition: all .3s;
+      position: relative; overflow: hidden; background: #fff;
+    }
+    .service-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--green));
+      opacity: 0; transition: opacity .3s;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(15,76,129,.11);
+      border-color: transparent;
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon { font-size: 2.4rem; margin-bottom: .9rem; }
+    .service-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--primary); margin-bottom: .45rem; }
+    .service-card p { color: var(--muted); font-size: .88rem; line-height: 1.65; }
+    /* Search-hidden state */
+    .service-card.hidden { display: none; }
+
+    #searchInfo { text-align: center; color: var(--muted); font-size: .9rem; padding: 1rem 0; min-height: 2rem; }
+
+    /* ════════════════════════════════════════
+       DOCTORS SECTION
+       ✏️ EDIT: Replace [Doctor Name] and specialty with your own team info.
+    ════════════════════════════════════════ */
+    #doctors { background: var(--bg); }
+    .doctors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.4rem; }
+    .doctor-card {
+      background: var(--white); border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+      overflow: hidden; text-align: center; transition: all .3s;
+    }
+    .doctor-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(15,76,129,.12); }
+    .doctor-avatar {
+      height: 170px; width: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-l));
+      display: flex; align-items: center; justify-content: center; font-size: 3.8rem;
+    }
+    .doctor-info { padding: 1.2rem; }
+    .doctor-info h3 { font-size: .95rem; font-weight: 700; }
+    .doctor-info .spec { color: var(--primary); font-size: .82rem; font-weight: 600; margin: .2rem 0 .4rem; }
+    .doctor-info .exp { color: var(--muted); font-size: .78rem; }
+
+    /* ════════════════════════════════════════
+       FORMS (shared)
+    ════════════════════════════════════════ */
+    .form-card {
+      background: #fff; border-radius: 18px;
+      padding: 2.25rem; box-shadow: 0 8px 36px rgba(15,76,129,.09);
+    }
+    .form-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--primary); margin-bottom: 1.4rem; }
+    .fgroup { margin-bottom: 1rem; }
+    .fgroup label { display: block; font-size: .83rem; font-weight: 600; color: #334155; margin-bottom: .3rem; }
+    .fgroup input,
+    .fgroup select,
+    .fgroup textarea {
+      width: 100%; padding: .62rem .95rem;
+      border: 1.5px solid var(--border); border-radius: 9px;
+      font-size: .92rem; font-family: inherit;
+      background: var(--bg); color: var(--text); transition: border-color .2s;
+    }
+    .fgroup input:focus,
+    .fgroup select:focus,
+    .fgroup textarea:focus { outline: none; border-color: var(--primary); background: #fff; }
+    .fgroup textarea { min-height: 90px; resize: vertical; }
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-submit {
+      width: 100%; padding: .82rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-l));
+      color: #fff; border: none; border-radius: 10px;
+      font-size: .98rem; font-weight: 700;
+      cursor: pointer; transition: all .2s; font-family: inherit; margin-top: .25rem;
+    }
+    .btn-submit:hover { opacity: .92; transform: translateY(-1px); }
+    .fmsg {
+      margin-top: .75rem; padding: .7rem 1rem;
+      border-radius: 8px; font-size: .88rem; font-weight: 500; display: none;
+    }
+    .fmsg.ok  { background: #dcfce7; color: #16a34a; display: block; }
+    .fmsg.err { background: #fee2e2; color: #dc2626; display: block; }
+
+    /* ════════════════════════════════════════
+       APPOINTMENT SECTION
+    ════════════════════════════════════════ */
+    #appointment { background: linear-gradient(135deg, #eff6ff, #ecfdf5); }
+    .appt-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3.5rem; align-items: center; }
+    .appt-info h2 { font-size: 1.7rem; font-weight: 800; color: var(--primary); margin-bottom: .9rem; }
+    .appt-info p { color: var(--muted); line-height: 1.8; margin-bottom: 1.4rem; font-size: .95rem; }
+    .steps { list-style: none; }
+    .steps li { display: flex; gap: .75rem; align-items: flex-start; margin-bottom: 1rem; }
+    .step-n {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--primary); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem;
+    }
+    .steps strong { display: block; font-size: .92rem; }
+    .steps span { color: var(--muted); font-size: .85rem; }
+
+    /* ════════════════════════════════════════
+       FEEDBACK / TESTIMONIALS SECTION
+    ════════════════════════════════════════ */
+    #feedback { background: var(--white); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.4rem; margin-bottom: 3rem; }
+    .t-card {
+      background: var(--bg); border-radius: 14px; padding: 1.6rem;
+      border-left: 4px solid var(--green);
+    }
+    .t-card .stars { color: #f59e0b; margin-bottom: .6rem; font-size: .95rem; }
+    .t-card p { color: var(--muted); font-size: .88rem; line-height: 1.7; margin-bottom: .8rem; }
+    .t-card .auth { font-weight: 700; color: var(--text); font-size: .88rem; }
+
+    /* Star picker for feedback form */
+    .star-row { display: flex; gap: .3rem; align-items: center; }
+    .star-row .star {
+      font-size: 1.7rem; cursor: pointer; color: #e2e8f0;
+      transition: color .15s; user-select: none;
+    }
+    .star-row .star.on { color: #f59e0b; }
+
+    /* ════════════════════════════════════════
+       CONTACT SECTION
+    ════════════════════════════════════════ */
+    #contact { background: var(--bg); }
+    .contact-wrap { display: grid; grid-template-columns: 1.1fr 1.4fr; gap: 3.5rem; align-items: start; }
+    .contact-info h2 { font-size: 1.7rem; font-weight: 800; color: var(--primary); margin-bottom: .9rem; }
+    .contact-info p  { color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; font-size: .95rem; }
+    .cinfo-list { list-style: none; }
+    .cinfo-list li { display: flex; gap: .75rem; align-items: flex-start; margin-bottom: 1rem; }
+    .ci-ico {
+      width: 38px; height: 38px; border-radius: 9px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--primary), var(--primary-l));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: .95rem;
+    }
+    .ci-ico-text strong { display: block; font-weight: 600; font-size: .88rem; }
+    .ci-ico-text span   { color: var(--muted); font-size: .85rem; }
+
+    /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+    footer {
+      background: #0d3f6b;
+      color: rgba(255,255,255,.78);
+      padding: 3.5rem 2rem 1.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr 1fr;
+      gap: 2rem;
+      max-width: 1100px; margin: 0 auto 2.5rem;
+    }
+    .f-brand .logo { margin-bottom: .75rem; }
+    .f-brand p  { font-size: .88rem; line-height: 1.7; }
+    footer h4   { color: #fff; font-weight: 700; margin-bottom: .9rem; font-size: .92rem; }
+    footer ul   { list-style: none; }
+    footer ul li { margin-bottom: .45rem; }
+    footer ul a { color: rgba(255,255,255,.68); font-size: .88rem; transition: color .2s; }
+    footer ul a:hover { color: #4ade80; }
+    /* ✏️ EDIT: Replace # with your real social media URLs */
+    .socials { display: flex; gap: .65rem; margin-top: .9rem; }
+    .socials a {
+      width: 36px; height: 36px; border-radius: 9px;
+      background: rgba(255,255,255,.1); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; transition: all .2s;
+    }
+    .socials a:hover { background: var(--green); transform: translateY(-2px); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.13);
+      max-width: 1100px; margin: 0 auto;
+      padding-top: 1.4rem; text-align: center;
+      font-size: .83rem;
+    }
+
+    /* ════════════════════════════════════════
+       ADMIN MODAL (quick access link)
+    ════════════════════════════════════════ */
+    .admin-banner {
+      background: linear-gradient(90deg, #0f4c81, #1a65a8);
+      color: #fff; text-align: center;
+      padding: .75rem 1rem; font-size: .88rem; font-weight: 500;
+    }
+    .admin-banner a { color: #4ade80; font-weight: 700; text-decoration: underline; }
+
+    /* ════════════════════════════════════════
+       BACK TO TOP
+    ════════════════════════════════════════ */
+    #backTop {
+      display: none; position: fixed; bottom: 1.75rem; right: 1.75rem;
+      width: 46px; height: 46px; border-radius: 12px;
+      background: var(--primary); color: #fff; border: none;
+      font-size: 1.2rem; cursor: pointer;
+      box-shadow: 0 4px 18px rgba(15,76,129,.4);
+      align-items: center; justify-content: center;
+      transition: all .2s; z-index: 900;
+    }
+    #backTop.show { display: flex; }
+    #backTop:hover { background: var(--primary-l); transform: translateY(-2px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:960px) { .about-grid, .appt-wrap, .contact-wrap { grid-template-columns: 1fr; } .nav-links, .nav-search { display: none; } .hamburger { display: block; } .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width:580px) { .footer-grid { grid-template-columns: 1fr; } .frow { grid-template-columns: 1fr; } .hero-stats { gap: 1.5rem; } }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+  ADMIN QUICK-ACCESS BANNER
+══════════════════════════════════════ -->
+<div class="admin-banner">
+  🔐 Admin Panel:
+  <a href="/admin/login" target="_blank">Login here</a>
+  &nbsp;·&nbsp; Email: admin@carepulse.com &nbsp;·&nbsp; Password: admin123
+</div>
+
+<!-- ═══════════════════════════════════════
+  NAVIGATION BAR
+══════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="logo">Care<span>Pulse</span> 🏥</div>
+
+  <!-- Search services -->
+  <div class="nav-search">
+    <span>🔍</span>
+    <input type="text" id="svcSearch" placeholder="Search services..." oninput="searchServices()">
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#doctors">Doctors</a></li>
+    <li><a href="#appointment">Appointment</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#feedback">Feedback</a></li>
+    <li>
+      <a href="/admin/login"
+         target="_blank" class="cta">🔐 Admin</a>
+    </li>
+  </ul>
+
+  <button class="hamburger" onclick="toggleMenu()">☰</button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobileMenu">
+  <a href="#home"        onclick="toggleMenu()">Home</a>
+  <a href="#about"       onclick="toggleMenu()">About</a>
+  <a href="#services"    onclick="toggleMenu()">Services</a>
+  <a href="#doctors"     onclick="toggleMenu()">Doctors</a>
+  <a href="#appointment" onclick="toggleMenu()">Appointment</a>
+  <a href="#contact"     onclick="toggleMenu()">Contact</a>
+  <a href="#feedback"    onclick="toggleMenu()">Feedback</a>
+  <a href="/admin/login" target="_blank">🔐 Admin Panel</a>
+</div>
+
+<!-- ═══════════════════════════════════════
+  HERO / HOME SECTION
+══════════════════════════════════════ -->
+<section id="home" class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🏆 Pakistan's Most Trusted Healthcare Platform</div>
+    <h1>Your Health Is Our <em>Priority</em>. Always.</h1>
+    <p>
+      Compassionate, expert medical care for you and your family.
+      Book appointments online, meet specialist doctors, and get the treatment you deserve.
+    </p>
+    <div class="hero-btns">
+      <button class="btn-hero-primary" onclick="scrollTo('#appointment')">
+        📅 Book Appointment
+      </button>
+      <button class="btn-hero-outline" onclick="scrollTo('#services')">
+        🏥 View Services
+      </button>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="val">10,000+</div><div class="lbl">Patients Treated</div></div>
+      <div class="hero-stat"><div class="val">50+</div><div class="lbl">Expert Doctors</div></div>
+      <div class="hero-stat"><div class="val">15+</div><div class="lbl">Specialties</div></div>
+      <div class="hero-stat"><div class="val">24/7</div><div class="lbl">Emergency Care</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  ABOUT SECTION
+  ✏️ EDIT: Replace placeholder paragraphs with your real clinic info.
+══════════════════════════════════════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-card">
+        <div class="ico">🏥</div>
+        <h3>About CarePulse</h3>
+        <!-- ✏️ EDIT: Replace this text with your actual about information -->
+        <p>Caring for communities since 2010. Accredited by the Pakistan Medical Association and trusted by over 10,000 patients.</p>
+      </div>
+
+      <div class="about-text">
+        <h2>Why Choose CarePulse?</h2>
+
+        <!-- ✏️ EDIT: Replace these placeholder paragraphs -->
+        <p>
+          CarePulse is a leading healthcare provider dedicated to delivering compassionate,
+          personalized medical care. With state-of-the-art facilities and a team of highly
+          qualified specialists, we are committed to your health and well-being.
+        </p>
+        <p>
+          From preventive care to advanced surgical procedures, our multidisciplinary team works
+          together to provide integrated, patient-centered healthcare you can trust.
+          <!-- ADD YOUR OWN CONTENT HERE -->
+        </p>
+
+        <ul class="checkmarks">
+          <li>Board-certified doctors &amp; specialists</li>
+          <li>Modern diagnostic equipment</li>
+          <li>Online appointment booking — 24/7</li>
+          <li>Affordable treatment packages</li>
+          <li>Emergency services always available</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  SERVICES SECTION
+  ✏️ ADD SERVICE: Copy one <div class="service-card"> block below to add more.
+  Or log in as admin at /admin/login → Services → Add New.
+  The dynamic services loaded from the database are appended by JavaScript below.
+══════════════════════════════════════ -->
+<section id="services">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-tag">WHAT WE OFFER</div>
+      <h2>Our Healthcare Services</h2>
+      <p>Expert care across all medical specialties — all under one roof.</p>
+    </div>
+
+    <div id="searchInfo"></div>
+
+    <div class="services-grid" id="servicesGrid">
+
+      <!-- ─── STATIC CARD EXAMPLES ─────────────────────────────────────
+           ✏️ ADD SERVICE: Copy the block below and fill in your own details.
+      ──────────────────────────────────────────────────────────────── -->
+      <div class="service-card" data-name="general medicine">
+        <div class="service-icon">🏥</div>
+        <h3>General Medicine</h3>
+        <p>Comprehensive primary care for patients of all ages. Diagnosis and treatment of a wide range of illnesses and injuries.</p>
+      </div>
+
+      <div class="service-card" data-name="cardiology">
+        <div class="service-icon">❤️</div>
+        <h3>Cardiology</h3>
+        <p>Expert heart care including diagnostics, treatment, and prevention of cardiovascular diseases.</p>
+      </div>
+
+      <div class="service-card" data-name="pediatrics">
+        <div class="service-icon">👶</div>
+        <h3>Pediatrics</h3>
+        <p>Dedicated care for infants, children, and adolescents with compassionate and experienced pediatricians.</p>
+      </div>
+
+      <div class="service-card" data-name="orthopedics">
+        <div class="service-icon">🦴</div>
+        <h3>Orthopedics</h3>
+        <p>Treatment of bone, joint, and muscle conditions including sports injuries and joint replacements.</p>
+      </div>
+
+      <div class="service-card" data-name="neurology">
+        <div class="service-icon">🧠</div>
+        <h3>Neurology</h3>
+        <p>Specialized diagnosis and treatment of brain, spinal cord, and nervous system disorders.</p>
+      </div>
+
+      <div class="service-card" data-name="dermatology">
+        <div class="service-icon">🌟</div>
+        <h3>Dermatology</h3>
+        <p>Skin, hair, and nail care including acne, eczema, psoriasis, and cosmetic treatments.</p>
+      </div>
+
+      <!-- ✏️ ADD YOUR SERVICE HERE — copy format above -->
+
+    </div><!-- /servicesGrid -->
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  DOCTORS / TEAM SECTION
+  ✏️ EDIT: Replace [Doctor Name] with your actual staff names, specialties, and experience.
+══════════════════════════════════════ -->
+<section id="doctors">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-tag">OUR TEAM</div>
+      <h2>Meet Our Expert Doctors</h2>
+      <p>Highly qualified, experienced, and compassionate — your health is safe with us.</p>
+    </div>
+
+    <div class="doctors-grid">
+
+      <!-- ✏️ EDIT: Replace emoji with <img> tag if you have a real photo -->
+      <div class="doctor-card">
+        <div class="doctor-avatar">👨‍⚕️</div>
+        <div class="doctor-info">
+          <h3>Dr. [Your Name]</h3>
+          <div class="spec">General Medicine</div>
+          <div class="exp">15 Years Experience</div>
+        </div>
+      </div>
+
+      <div class="doctor-card">
+        <div class="doctor-avatar">👩‍⚕️</div>
+        <div class="doctor-info">
+          <h3>Dr. [Your Name]</h3>
+          <div class="spec">Cardiology</div>
+          <div class="exp">12 Years Experience</div>
+        </div>
+      </div>
+
+      <div class="doctor-card">
+        <div class="doctor-avatar">👨‍⚕️</div>
+        <div class="doctor-info">
+          <h3>Dr. [Your Name]</h3>
+          <div class="spec">Pediatrics</div>
+          <div class="exp">10 Years Experience</div>
+        </div>
+      </div>
+
+      <div class="doctor-card">
+        <div class="doctor-avatar">👩‍⚕️</div>
+        <div class="doctor-info">
+          <h3>Dr. [Your Name]</h3>
+          <div class="spec">Neurology</div>
+          <div class="exp">18 Years Experience</div>
+        </div>
+      </div>
+
+      <!-- ✏️ ADD DOCTOR: Copy a .doctor-card block above and fill in your info -->
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  APPOINTMENT BOOKING SECTION
+  Form submits to Rails backend: POST /api/appointments
+══════════════════════════════════════ -->
+<section id="appointment">
+  <div class="container">
+    <div class="appt-wrap">
+
+      <div class="appt-info">
+        <div class="sec-tag">BOOK AN APPOINTMENT</div>
+        <h2>Schedule Your Visit in 3 Easy Steps</h2>
+        <p>Getting medical care has never been easier. Fill out the form and our team will confirm your appointment within 24 hours.</p>
+        <ul class="steps">
+          <li>
+            <div class="step-n">1</div>
+            <div>
+              <strong>Choose a Service</strong>
+              <span>Select the medical specialty you need.</span>
+            </div>
+          </li>
+          <li>
+            <div class="step-n">2</div>
+            <div>
+              <strong>Fill in Your Details</strong>
+              <span>Provide contact info and a preferred date.</span>
+            </div>
+          </li>
+          <li>
+            <div class="step-n">3</div>
+            <div>
+              <strong>Get Confirmation</strong>
+              <span>We'll call or email you within 24 hours.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-card">
+        <h3>📅 Book an Appointment</h3>
+        <form id="apptForm" novalidate>
+          <div class="frow">
+            <div class="fgroup">
+              <label for="a_name">Full Name *</label>
+              <input type="text" id="a_name" placeholder="Your full name" required>
+            </div>
+            <div class="fgroup">
+              <label for="a_email">Email *</label>
+              <input type="email" id="a_email" placeholder="your@email.com" required>
+            </div>
+          </div>
+          <div class="frow">
+            <div class="fgroup">
+              <label for="a_service">Service</label>
+              <select id="a_service">
+                <option value="">-- Select a Service --</option>
+                <!-- These options are populated from the Rails API using JavaScript below -->
+              </select>
+            </div>
+            <div class="fgroup">
+              <label for="a_date">Preferred Date &amp; Time *</label>
+              <input type="datetime-local" id="a_date" required>
+            </div>
+          </div>
+          <div class="fgroup">
+            <label for="a_msg">Message (optional)</label>
+            <textarea id="a_msg" placeholder="Describe your condition or any special request..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">📅 Submit Booking Request</button>
+          <div id="apptMsg" class="fmsg"></div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  FEEDBACK / TESTIMONIALS SECTION
+  Form submits to Rails backend: POST /api/feedback
+══════════════════════════════════════ -->
+<section id="feedback">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-tag">PATIENT REVIEWS</div>
+      <h2>What Our Patients Say</h2>
+      <p>Real feedback from real patients. We are proud to serve thousands of happy families.</p>
+    </div>
+
+    <!-- Published testimonials loaded from the backend via JS -->
+    <div class="testimonials-grid" id="testimonialsGrid">
+
+      <!-- Fallback static cards (shown if backend is offline) -->
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p>"The doctors at CarePulse are incredibly professional. I felt well taken care of from the very first visit."</p>
+        <div class="auth">— Sarah Johnson</div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p>"Excellent service and very clean facilities. Booking an appointment online was so easy!"</p>
+        <div class="auth">— Ahmed Khan</div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★☆</div>
+        <p>"Very caring staff and prompt service. Will definitely recommend to my family and friends."</p>
+        <div class="auth">— Maria Rodriguez</div>
+      </div>
+
+    </div>
+
+    <!-- Leave Feedback Form -->
+    <div style="max-width:620px; margin: 0 auto;">
+      <div class="form-card">
+        <h3>💬 Share Your Feedback</h3>
+        <form id="fbForm" novalidate>
+          <div class="frow">
+            <div class="fgroup">
+              <label for="f_name">Your Name *</label>
+              <input type="text" id="f_name" placeholder="e.g. Ahmed Khan" required>
+            </div>
+            <div class="fgroup">
+              <label>Rating *</label>
+              <div class="star-row" id="starRow">
+                <span class="star" data-v="1">★</span>
+                <span class="star" data-v="2">★</span>
+                <span class="star" data-v="3">★</span>
+                <span class="star" data-v="4">★</span>
+                <span class="star" data-v="5">★</span>
+              </div>
+            </div>
+          </div>
+          <div class="fgroup">
+            <label for="f_comment">Your Comments *</label>
+            <textarea id="f_comment" placeholder="Share your experience with CarePulse..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">✉️ Submit Feedback</button>
+          <div id="fbMsg" class="fmsg"></div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  CONTACT SECTION
+  ✏️ EDIT: Replace phone, address, email below with your real info.
+══════════════════════════════════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-tag">GET IN TOUCH</div>
+      <h2>Contact Us</h2>
+      <p>Have a question? Our friendly team is here to help you.</p>
+    </div>
+    <div class="contact-wrap">
+
+      <div class="contact-info">
+        <h2>We're Here to Help</h2>
+        <p>Whether it's a general inquiry, an appointment question, or an emergency — CarePulse is available 24/7 to support you.</p>
+        <ul class="cinfo-list">
+          <li>
+            <div class="ci-ico">📍</div>
+            <div class="ci-ico-text">
+              <strong>Address</strong>
+              <!-- ✏️ EDIT: Replace with your real address -->
+              <span>123 Health Street, Lahore, Pakistan</span>
+            </div>
+          </li>
+          <li>
+            <div class="ci-ico">📞</div>
+            <div class="ci-ico-text">
+              <strong>Phone</strong>
+              <!-- ✏️ EDIT: Replace with your real phone number -->
+              <span>+92 300 0000000</span>
+            </div>
+          </li>
+          <li>
+            <div class="ci-ico">📧</div>
+            <div class="ci-ico-text">
+              <strong>Email</strong>
+              <!-- ✏️ EDIT: Replace with your real email -->
+              <span>info@carepulse.com</span>
+            </div>
+          </li>
+          <li>
+            <div class="ci-ico">🕐</div>
+            <div class="ci-ico-text">
+              <strong>Working Hours</strong>
+              <span>Mon–Sat: 8AM–10PM &nbsp;|&nbsp; Emergency: 24/7</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-card">
+        <h3>📬 Send Us a Message</h3>
+        <form id="contactForm" novalidate>
+          <div class="frow">
+            <div class="fgroup">
+              <label for="c_name">Full Name *</label>
+              <input type="text" id="c_name" placeholder="Your name" required>
+            </div>
+            <div class="fgroup">
+              <label for="c_email">Email *</label>
+              <input type="email" id="c_email" placeholder="your@email.com" required>
+            </div>
+          </div>
+          <div class="fgroup">
+            <label for="c_subject">Subject</label>
+            <input type="text" id="c_subject" placeholder="What is it regarding?">
+          </div>
+          <div class="fgroup">
+            <label for="c_msg">Message *</label>
+            <textarea id="c_msg" placeholder="Write your message here..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">📤 Send Message</button>
+          <div id="contactMsg" class="fmsg"></div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+  FOOTER
+  ✏️ EDIT: Replace # in social links with your real social media URLs.
+══════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+
+    <div class="f-brand">
+      <div class="logo">Care<span>Pulse</span> 🏥</div>
+      <p>Providing compassionate, world-class healthcare to every patient. Your health is our mission.</p>
+      <!-- ✏️ EDIT: Replace # with your real social URLs -->
+      <div class="socials">
+        <a href="#" title="Facebook"   aria-label="Facebook">f</a>
+        <a href="#" title="Instagram"  aria-label="Instagram">📸</a>
+        <a href="#" title="Twitter"    aria-label="Twitter">🐦</a>
+        <a href="#" title="WhatsApp"   aria-label="WhatsApp">💬</a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#doctors">Our Doctors</a></li>
+        <li><a href="#appointment">Book Appointment</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">General Medicine</a></li>
+        <li><a href="#services">Cardiology</a></li>
+        <li><a href="#services">Pediatrics</a></li>
+        <li><a href="#services">Orthopedics</a></li>
+        <li><a href="#services">Neurology</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">📍 Lahore, Pakistan</a></li>
+        <li><a href="#">📞 +92 300 0000000</a></li>
+        <li><a href="#">📧 info@carepulse.com</a></li>
+        <li><a href="/admin/login" target="_blank">🔐 Admin Panel</a></li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    <p>© <span id="yr"></span> CarePulse. All rights reserved. | Built with ❤️ for better healthcare.</p>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
+
+<!-- ═══════════════════════════════════════
+  JAVASCRIPT (all inline — no external files)
+
+  This script:
+  1. Loads services from Rails API and fills the appointment dropdown
+  2. Submits appointment form to Rails backend
+  3. Submits feedback form to Rails backend
+  4. Handles contact form (local — shows message only)
+  5. Service search bar
+  6. Star rating picker
+  7. Mobile menu
+  8. Back-to-top button
+
+  API Base URL: Change RAILS_URL if your server runs on a different port.
+══════════════════════════════════════ -->
+<script>
+
+  // ── CONFIG ──────────────────────────────────────────────
+  // If hosting live on Netlify, put your Ruby backend URL (from Render/Railway) here:
+  const LIVE_BACKEND_URL = ''; 
+
+  // Automatically detect if we should use localhost, a specific live URL, or the current origin
+  const RAILS_URL = (window.location.hostname === 'localhost' || window.location.protocol === 'file:') 
+                    ? 'http://localhost:3000' 
+                    : (LIVE_BACKEND_URL || window.location.origin);
+
+  // ── HELPER: smooth scroll ───────────────────────────────
+  function scrollTo(id) {
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // ── FOOTER YEAR ─────────────────────────────────────────
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // ── BACK TO TOP ─────────────────────────────────────────
+  window.addEventListener('scroll', () => {
+    document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
+  });
+
+  // ── MOBILE MENU ─────────────────────────────────────────
+  function toggleMenu() {
+    const m = document.getElementById('mobileMenu');
+    m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+  // ── SERVICE SEARCH ──────────────────────────────────────
+  function searchServices() {
+    const q     = document.getElementById('svcSearch').value.toLowerCase().trim();
+    const cards = document.querySelectorAll('#servicesGrid .service-card');
+    let   shown = 0;
+    cards.forEach(c => {
+      const match = c.dataset.name.includes(q) ||
+                    c.querySelector('h3').textContent.toLowerCase().includes(q);
+      c.classList.toggle('hidden', !match);
+      if (match) shown++;
+    });
+    const info = document.getElementById('searchInfo');
+    info.textContent = q ? `${shown} service(s) found for "${q}"` : '';
+  }
+
+  // ── STAR RATING (feedback form) ─────────────────────────
+  let selectedRating = 0;
+  document.querySelectorAll('#starRow .star').forEach(star => {
+    star.addEventListener('click', () => {
+      selectedRating = parseInt(star.dataset.v);
+      document.querySelectorAll('#starRow .star').forEach(s => {
+        s.classList.toggle('on', parseInt(s.dataset.v) <= selectedRating);
+      });
+    });
+    star.addEventListener('mouseover', () => {
+      const v = parseInt(star.dataset.v);
+      document.querySelectorAll('#starRow .star').forEach(s => {
+        s.classList.toggle('on', parseInt(s.dataset.v) <= v);
+      });
+    });
+    star.addEventListener('mouseout', () => {
+      document.querySelectorAll('#starRow .star').forEach(s => {
+        s.classList.toggle('on', parseInt(s.dataset.v) <= selectedRating);
+      });
+    });
+  });
+
+  // ── LOAD SERVICES FROM RAILS API ────────────────────────
+  // Fetches all services from the database and populates the appointment dropdown.
+  // If the Rails server is offline, the static cards above are still visible.
+  async function loadServices() {
+    try {
+      const res  = await fetch(`${RAILS_URL}/api/services`);
+      if (!res.ok) return;
+      const data = await res.json();
+      const sel  = document.getElementById('a_service');
+      // Keep first default option, then append DB services
+      data.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value       = s.id;
+        opt.textContent = s.title;
+        sel.appendChild(opt);
+      });
+    } catch (e) {
+      // Backend offline — silently continue with static content
+      console.info('CarePulse: Rails server offline. Running in static mode.');
+    }
+  }
+  loadServices();
+
+  // ── HELPER: get CSRF token from Rails ───────────────────
+  // The CSRF token is embedded in the page by Rails for security.
+  // Since this is a static HTML file, we skip it (API uses skip_before_action).
+  function csrf() {
+    return document.querySelector('meta[name="csrf-token"]')?.content || '';
+  }
+
+  // ── APPOINTMENT FORM SUBMISSION ─────────────────────────
+  document.getElementById('apptForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const msg   = document.getElementById('apptMsg');
+    msg.className = 'fmsg';
+
+    const name  = document.getElementById('a_name').value.trim();
+    const email = document.getElementById('a_email').value.trim();
+    const date  = document.getElementById('a_date').value;
+
+    // Basic validation
+    if (!name)                       return showMsg(msg, '❌ Please enter your name.',        'err');
+    if (!email || !email.includes('@')) return showMsg(msg, '❌ Please enter a valid email.', 'err');
+    if (!date)                       return showMsg(msg, '❌ Please select a date.',           'err');
+
+    try {
+      const res = await fetch(`${RAILS_URL}/api/appointments`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ appointment: {
+          name,
+          email,
+          service_id: document.getElementById('a_service').value || null,
+          date,
+          message: document.getElementById('a_msg').value.trim()
+        }})
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showMsg(msg, '✅ ' + (data.message || 'Appointment booked! We will contact you soon.'), 'ok');
+        this.reset();
+      } else {
+        showMsg(msg, '❌ ' + (data.errors?.join(', ') || 'Something went wrong. Try again.'), 'err');
+      }
+    } catch (_) {
+      showMsg(msg, '❌ Cannot connect to server. Please check your internet or server status.', 'err');
+    }
+  });
+
+  // ── FEEDBACK FORM SUBMISSION ────────────────────────────
+  document.getElementById('fbForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const msg     = document.getElementById('fbMsg');
+    msg.className = 'fmsg';
+
+    const name    = document.getElementById('f_name').value.trim();
+    const comment = document.getElementById('f_comment').value.trim();
+
+    if (!name)          return showMsg(msg, '❌ Please enter your name.',    'err');
+    if (!selectedRating) return showMsg(msg, '❌ Please select a rating.',  'err');
+    if (!comment)       return showMsg(msg, '❌ Please write your comment.', 'err');
+
+    try {
+      const res = await fetch(`${RAILS_URL}/api/feedback`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ feedback: { name, rating: selectedRating, comment }})
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showMsg(msg, '✅ ' + (data.message || 'Thank you for your feedback!'), 'ok');
+        this.reset();
+        selectedRating = 0;
+        document.querySelectorAll('#starRow .star').forEach(s => s.classList.remove('on'));
+      } else {
+        showMsg(msg, '❌ ' + (data.errors?.join(', ') || 'Something went wrong.'), 'err');
+      }
+    } catch (_) {
+      showMsg(msg, '❌ Cannot connect to server. Make sure Rails is running.', 'err');
+    }
+  });
+
+  // ── CONTACT FORM (local only — no backend endpoint needed) ──
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const msg = document.getElementById('contactMsg');
+    const name  = document.getElementById('c_name').value.trim();
+    const email = document.getElementById('c_email').value.trim();
+    const cmsg  = document.getElementById('c_msg').value.trim();
+    if (!name || !email || !cmsg) return showMsg(msg, '❌ Please fill all required fields.', 'err');
+    // In a real project, send this to your backend or an email service (e.g. Formspree)
+    showMsg(msg, '✅ Message received! We will get back to you soon.', 'ok');
+    this.reset();
+  });
+
+  // ── HELPER: show form message ────────────────────────────
+  function showMsg(el, text, type) {
+    el.textContent = text;
+    el.className   = 'fmsg ' + type;
+    setTimeout(() => { if (type === 'ok') el.className = 'fmsg'; }, 6000);
+  }
+
+  // ── FIX ADMIN LINKS FOR LIVE OR FILE PROTOCOL ──────────
+  // If we are on a remote frontend (Netlify) but using a different backend URL, 
+  // we must update all admin links manually.
+  if (RAILS_URL && RAILS_URL !== window.location.origin) {
+    document.querySelectorAll('a[href^="/admin"]').forEach(link => {
+      const originalPath = link.getAttribute('href');
+      link.href = RAILS_URL + originalPath;
+    });
+  }
+
+</script>
+</body>
+</html>
